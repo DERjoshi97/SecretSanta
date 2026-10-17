@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wichteln</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎁</text></svg>" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="header-row">
+          <h1>🎁 Wichteln</h1>
+          <button type="button" id="logout" class="secondary" hidden>Abmelden</button>
+        </div>
+        <p>Teilnehmer eintragen, Ausschlüsse festlegen, auslosen – jede Person erfährt per E-Mail, wen sie beschenkt.</p>
+      </header>
+
+      <form id="login-form" class="card login" novalidate hidden>
+        <h2>Anmelden</h2>
+        <p class="hint">Nur der Organisator kann eine Auslosung starten.</p>
+        <label>
+          Passwort
+          <input id="password" type="password" autocomplete="current-password" required />
+        </label>
+        <div id="login-feedback" class="feedback error" role="alert" hidden></div>
+        <button type="submit" id="login-submit" class="primary">Anmelden</button>
+      </form>
+
+      <div id="dry-run-banner" class="banner" hidden>
+        <strong>Testmodus:</strong> Es ist kein SMTP-Server eingerichtet. Mails werden nicht verschickt,
+        sondern nur in der Server-Konsole ausgegeben.
+      </div>
+
+      <form id="draw-form" novalidate hidden>
+        <section class="card">
+          <h2>1. Anlass</h2>
+          <label>
+            Name des Wichtelns
+            <input id="event-name" type="text" maxlength="100" placeholder="z. B. Weihnachtswichteln 2026" />
+          </label>
+          <div class="row">
+            <label>
+              Dein Name
+              <input id="organizer-name" type="text" maxlength="100" autocomplete="name" placeholder="Organisator" />
+            </label>
+            <label>
+              Deine E-Mail <span class="hint">(für Rückmeldungen)</span>
+              <input id="organizer-email" type="email" maxlength="254" autocomplete="email" placeholder="du@example.com" />
+            </label>
+          </div>
+          <p class="hint">Du bekommst eine Zusammenfassung und eine Mail, sobald jemand den Erhalt bestätigt. Wer wen zieht, erfährst du nicht.</p>
+          <label>
+            Nachricht an alle <span class="hint">(optional)</span>
+            <textarea id="message" rows="3" maxlength="2000" placeholder="z. B. Budget: 20 €, Bescherung am 24.12. bei Oma"></textarea>
+          </label>
+        </section>
+
+        <section class="card">
+          <h2>2. Teilnehmer</h2>
+          <div id="participants"></div>
+          <button type="button" id="add-participant" class="secondary">+ Person hinzufügen</button>
+        </section>
+
+        <section class="card">
+          <h2>3. Ausschlüsse <span class="hint">(optional)</span></h2>
+          <p class="hint">z. B. damit sich Paare oder Geschwister nicht gegenseitig ziehen.</p>
+          <div class="exclusion-form">
+            <select id="exclusion-giver" aria-label="Person"></select>
+            <span>darf nicht ziehen</span>
+            <select id="exclusion-receiver" aria-label="Ausgeschlossene Person"></select>
+            <label class="checkbox">
+              <input id="exclusion-mutual" type="checkbox" checked />
+              und umgekehrt
+            </label>
+            <button type="button" id="add-exclusion" class="secondary">Hinzufügen</button>
+          </div>
+          <ul id="exclusions"></ul>
+        </section>
+
+        <div id="feedback" class="feedback" role="status" hidden></div>
+
+        <button type="submit" id="submit" class="primary">Auslosen &amp; Mails verschicken</button>
+      </form>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

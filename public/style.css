@@ -1,0 +1,304 @@
+:root {
+  --bg: #f7f4f0;
+  --card: #ffffff;
+  --text: #1f2933;
+  --muted: #6b7280;
+  --border: #e5e0d8;
+  --accent: #b91c1c;
+  --accent-hover: #991b1b;
+  --accent-soft: #fdf2f2;
+  --ok: #15803d;
+  --ok-soft: #f0fdf4;
+  --warn-soft: #fffbeb;
+  --warn: #92400e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15171a;
+    --card: #1f2226;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --border: #33373d;
+    --accent: #ef4444;
+    --accent-hover: #f87171;
+    --accent-soft: #3b1515;
+    --ok: #4ade80;
+    --ok-soft: #13291b;
+    --warn-soft: #33270f;
+    --warn: #fbbf24;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+header h1 {
+  margin: 0 0 4px;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+input[type="password"] {
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 12px;
+}
+
+.row > label {
+  flex: 1 1 220px;
+}
+
+.login {
+  max-width: 400px;
+}
+
+.login .feedback {
+  margin-bottom: 12px;
+}
+
+header p {
+  margin: 0 0 24px;
+  color: var(--muted);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.card h2 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+}
+
+.hint {
+  color: var(--muted);
+  font-weight: normal;
+  font-size: 0.9em;
+}
+
+p.hint {
+  margin: -6px 0 12px;
+}
+
+label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+input.invalid {
+  border-color: var(--accent);
+}
+
+button {
+  font: inherit;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button.primary {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+button.primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+button.secondary {
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+}
+
+button.secondary:hover {
+  border-color: var(--accent);
+}
+
+button.remove {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.2rem;
+}
+
+button.remove:hover {
+  color: var(--accent);
+}
+
+.participant {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.participant input {
+  margin-top: 0;
+}
+
+.participant .name {
+  flex: 2;
+}
+
+.participant .email {
+  flex: 3;
+}
+
+.exclusion-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.exclusion-form select {
+  flex: 1 1 160px;
+  width: auto;
+  margin-top: 0;
+}
+
+.exclusion-form .checkbox {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin: 0;
+  font-weight: normal;
+}
+
+#exclusions {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+}
+
+#exclusions li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 4px 4px 12px;
+  border-radius: 8px;
+  background: var(--bg);
+  margin-bottom: 6px;
+}
+
+.banner {
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.feedback {
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.feedback.error {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.feedback.success {
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+
+@media (max-width: 520px) {
+  .participant {
+    flex-wrap: wrap;
+  }
+
+  .participant .name,
+  .participant .email {
+    flex: 1 1 100%;
+  }
+
+  .participant {
+    position: relative;
+    padding-right: 40px;
+  }
+
+  .participant button.remove {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
