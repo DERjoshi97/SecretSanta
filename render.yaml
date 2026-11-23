@@ -1,0 +1,42 @@
+# Render-Blueprint: https://render.com/docs/blueprint-spec
+# Im Render-Dashboard "New" → "Blueprint" wählen und dieses Repository verbinden.
+services:
+  - type: web
+    name: secretsanta
+    runtime: node
+    # Achtung: Auf dem Free-Plan blockiert Render ausgehende SMTP-Verbindungen
+    # (Ports 25, 465, 587). Für Gmail/GMX/Web.de den Plan "starter" wählen –
+    # oder einen Mailanbieter nutzen, der Port 2525 anbietet (z. B. Brevo, Mailgun).
+    plan: free
+    region: frankfurt
+    branch: main
+    autoDeploy: true
+    # --include=dev, weil TypeScript (tsc) eine devDependency ist und
+    # NODE_ENV=production sonst die devDependencies weglässt.
+    buildCommand: npm ci --include=dev && npm run build
+    startCommand: npm run start:prod
+    healthCheckPath: /api/status
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      # Render läuft hinter einem Proxy, der HTTPS übernimmt.
+      - key: TRUST_PROXY
+        value: "true"
+      # Wird von Render einmalig zufällig erzeugt und bleibt danach fest.
+      - key: SESSION_SECRET
+        generateValue: true
+      # Folgende Werte fragt Render beim Anlegen ab (werden nicht eingecheckt).
+      - key: ORGANIZER_PASSWORD
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: MAIL_FROM
+        sync: false
