@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "start": "tsx src/server.ts",
+    "start:prod": "node dist/server.js",
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
@@ -34,6 +35,9 @@
     "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "vitest": "^5.0.5"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "private": true
 }

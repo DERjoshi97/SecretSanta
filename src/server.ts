@@ -39,9 +39,13 @@ app.use(express.json({ limit: "100kb" }));
 app.use(express.urlencoded({ extended: false, limit: "10kb" }));
 app.use(express.static(publicDir));
 
-/** Basis-URL für Links in Mails. Bei öffentlichem Betrieb PUBLIC_URL setzen. */
+/**
+ * Basis-URL für Links in Mails. Bei öffentlichem Betrieb PUBLIC_URL setzen.
+ * Auf Render wird automatisch RENDER_EXTERNAL_URL (die onrender.com-Adresse) verwendet.
+ */
 function baseUrl(req: express.Request): string {
-  return (process.env.PUBLIC_URL || `${req.protocol}://${req.get("host")}`).replace(/\/+$/, "");
+  const configured = process.env.PUBLIC_URL || process.env.RENDER_EXTERNAL_URL;
+  return (configured || `${req.protocol}://${req.get("host")}`).replace(/\/+$/, "");
 }
 
 app.get("/api/status", (req, res) => {

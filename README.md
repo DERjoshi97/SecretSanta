@@ -60,6 +60,28 @@ Die Mails werden über ein normales SMTP-Konto verschickt. Die Zugangsdaten steh
 Ist kein `SMTP_HOST` gesetzt (oder `MAIL_DRY_RUN=true`), läuft die App im **Testmodus**: Es wird
 ganz normal ausgelost, die Mails werden aber nur in der Server-Konsole ausgegeben.
 
+## Auf Render veröffentlichen
+
+Das Repository enthält eine [render.yaml](render.yaml) (Render-Blueprint).
+
+1. Bei [render.com](https://render.com) anmelden und das GitHub-Konto verbinden.
+2. **New → Blueprint** wählen und dieses Repository auswählen.
+3. Render fragt die geheimen Werte ab: `ORGANIZER_PASSWORD`, `SMTP_HOST`, `SMTP_PORT`,
+   `SMTP_USER`, `SMTP_PASS` und `MAIL_FROM`. `SESSION_SECRET` erzeugt Render selbst.
+4. Nach dem ersten Deploy ist die App unter `https://<name>.onrender.com` erreichbar. Diese
+   Adresse wird automatisch für die Bestätigungslinks verwendet. Bei einer eigenen Domain
+   zusätzlich `PUBLIC_URL` setzen.
+
+Jeder Push auf `main` löst automatisch ein neues Deployment aus.
+
+Hinweise zum **Free-Plan**:
+
+- Render blockiert dort ausgehende SMTP-Verbindungen (Ports 25, 465 und 587). Mit Gmail, GMX
+  oder Web.de werden also keine Mails verschickt. Abhilfe: in `render.yaml` `plan: starter`
+  setzen (kostenpflichtig) oder einen Mailanbieter mit Port 2525 nutzen (z. B. Brevo, Mailgun).
+- Nach 15 Minuten ohne Aufruf schläft die App ein. Der nächste Aufruf dauert dann etwa eine
+  Minute. Bestätigungslinks funktionieren trotzdem, weil `SESSION_SECRET` fest gesetzt ist.
+
 ## Entwicklung
 
 ```bash
